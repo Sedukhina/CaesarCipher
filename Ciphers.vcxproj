@@ -24,6 +24,7 @@
     <ProjectGuid>{2634cf6c-2a4a-41d0-b239-3870d045ef3a}</ProjectGuid>
     <RootNamespace>Caesarcipher</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Ciphers</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -139,7 +140,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Caesar cipher.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Quadratic Trithemius cipher.cpp" />
+    <ClCompile Include="Vigenere cipher.cpp" />
+    <ClCompile Include="XOR cipher.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
