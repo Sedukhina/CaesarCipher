@@ -22,10 +22,10 @@ void encryptVigenere(char* text, string Key, int n) {
 			else if ((a >= 97) && (a <= 122)) {
 				text[i] = text[i] + a - 97;
 			}
-			if (text[i] < 65) {
+			while (text[i] < 65) {
 				text[i] = text[i] + 26;
 			}
-			if (text[i] > 90) {
+			while (text[i] > 90) {
 				text[i] = text[i] - 26;
 			}
 			b++;
@@ -36,15 +36,15 @@ void encryptVigenere(char* text, string Key, int n) {
 		}
 		else if ((text[i] >= 97) && (text[i] <= 122)) {
 			if ((a >= 65) && (a <= 90)) {
-				text[i] = text[i] + a - 65;
+				text[i] = text[i] + a;
 			}
 			else if ((a >= 97) && (a <= 122)) {
-				text[i] = text[i] + a - 97;
+				text[i] = text[i] + a;
 			}
-			if (text[i] > 122) {
+			while (text[i] > 122) {
 				text[i] = text[i] - 26;
 			}
-			if (text[i] < 97) {
+			while (text[i] < 97) {
 				text[i] = text[i] + 26;
 			}
 			b++;
@@ -65,15 +65,15 @@ void decryptVigenere(char text[], string Key, int n) {
 	for (int i = 0; i < n; ++i) {
 		if ((text[i] >= 65) && (text[i] <= 90)) {
 			if ((a >= 65) && (a <= 90)) {
-				text[i] = text[i] - a + 65;
+				text[i] = text[i] - a;
 			}
 			else if ((a >= 97) && (a <= 122)) {
-				text[i] = text[i] - a + 97;
+				text[i] = text[i] - a;
 			}
-			if (text[i] < 65) {
+			while (text[i] < 65) {
 				text[i] = text[i] + 26;
 			}
-			if (text[i] > 90) {
+			while (text[i] > 90) {
 				text[i] = text[i] - 26;
 			}
 			b++;
@@ -89,10 +89,10 @@ void decryptVigenere(char text[], string Key, int n) {
 			else if ((a >= 97) && (a <= 122)) {
 				text[i] = text[i] - a + 97;
 			}
-			if (text[i] > 122) {
+			while (text[i] > 122) {
 				text[i] = text[i] - 26;
 			}
-			if (text[i] < 97) {
+			while (text[i] < 97) {
 				text[i] = text[i] + 26;
 			}
 			b++;

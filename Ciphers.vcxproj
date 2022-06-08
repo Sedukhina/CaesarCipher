@@ -141,8 +141,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Caesar cipher.cpp" />
+    <ClCompile Include="DES.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Quadratic Trithemius cipher.cpp" />
+    <ClCompile Include="RSA.cpp" />
     <ClCompile Include="Vigenere cipher.cpp" />
     <ClCompile Include="XOR cipher.cpp" />
   </ItemGroup>

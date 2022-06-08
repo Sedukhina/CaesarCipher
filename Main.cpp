@@ -1,12 +1,15 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
-#include<ios>
-#include<limits>
+#include <ios>
+#include <bitset>
+#include <sstream>
+#include <iomanip>
 
 using namespace std;
 
 void print(char* text);
+string string_to_hex(std::string& in);
 void encryptCaesar(char* text, int offset, int n);
 void decryptCaesar(char text[], int n);
 int changeOffset();
@@ -17,6 +20,9 @@ void encryptVigenere(char* text, string Key, int n);
 void decryptVigenere(char text[], string Key, int n);
 string changeKey();
 string encryptXOR(string text, string key, int n);
+string encryptDES(string text, string key);
+string decryptDES(string text, string skey);
+string encryptRSA(string text);
 
 
 int main() {
@@ -28,6 +34,8 @@ int main() {
 	int n = txt.length();
 	char choose;
 	char cipher;
+	/*bitset<4> binKeyi = bitset<4>('a');
+	cout << binKeyi.to_string();*/
 	while (1)
 	{
 		printf("Press 0 to see your text\nPress 1 to encrypt your text\nPress 2 to decrypt your text\nPress 3 to change your text\nPress 4 to exit\n");
@@ -41,7 +49,7 @@ int main() {
 		}
 		if (choose == 49)
 		{
-			printf("Pick cipher\n1 - Caesar\n2 - Trithemius(quadratic)\n3 - Vigenere\n4 - XOR\n");
+			printf("Pick cipher\n1 - Caesar\n2 - Trithemius(quadratic)\n3 - Vigenere\n4 - XOR\n5 - DES\n");
 			scanf("%c", &cipher);
 			if (cipher == 10) {
 				scanf("%c", &cipher);
@@ -66,10 +74,18 @@ int main() {
 				n = txt.length();
 				print(text);
 			}
+			if (cipher == 53) {
+				txt = string_to_hex(txt);
+				cout << "\nYour text in hexademical " << txt <<"\n\n";
+				txt = encryptDES(txt, changeKey());
+				text = &txt[0];
+				n = txt.length();
+				print(text);
+			}
 		}
 		if (choose == 50)
 		{
-			printf("Pick cipher\n1 - Caesar\n2 - Trithemius(quadratic)\n3 - Vigenere\n4 - XOR\n");
+			printf("Pick cipher\n1 - Caesar\n2 - Trithemius(quadratic)\n3 - Vigenere\n4 - XOR\n5 - DES\n");
 			scanf("%c", &cipher);
 			if (cipher == 10) {
 				scanf("%c", &cipher);
@@ -89,6 +105,12 @@ int main() {
 			if (cipher == 52)
 			{
 				txt = encryptXOR(txt, changeKey(), n);
+				text = &txt[0];
+				n = txt.length();
+				print(text);
+			}
+			if (cipher == 53) {
+				txt = decryptDES(txt, changeKey());
 				text = &txt[0];
 				n = txt.length();
 				print(text);
@@ -114,4 +136,11 @@ void print(char* text) {
 }
 
 
-
+string string_to_hex(std::string& in) {
+	std::stringstream ss;
+	ss << std::hex << std::setfill('0');
+	for (size_t i = 0; in.length() > i; ++i) {
+		ss << std::setw(2) << static_cast<unsigned int>(static_cast<unsigned char>(in[i]));
+	}
+	return ss.str();
+}

@@ -15,6 +15,7 @@ string encryptXOR(string text, string key, int n) {
 	for (int i = 0; i < n; ++i) {
 		bitset<8> binTexti = bitset<8>(text.c_str()[i]);
 		bitset<8> resulti = binKeyi ^ binTexti;
+		cout << resulti.to_string() << " ";
 		unsigned long m = resulti.to_ulong();
 		unsigned char c = static_cast<unsigned char>(m);
 		result += c;
@@ -24,5 +25,6 @@ string encryptXOR(string text, string key, int n) {
 		}
 		binKeyi = bitset<8>(key.c_str()[k]);
 	}
+	cout << "\n";
 	return result;
 }

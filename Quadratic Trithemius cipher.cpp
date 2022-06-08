@@ -10,7 +10,7 @@ void encryptTrithemius(char* text, int c, int b, int a, int n) {
 	int texti;
 	for (int i = 0; i < n; ++i) {
 		if ((text[i] >= 65) && (text[i] <= 90)) {
-			texti = int(text[i]) + a * (i + 1) * (i + 1) + b * (i + 1) + c;
+			texti = int(text[i]) + a * (i) * (i) + b * (i) + c;
 			while (texti < 65) {
 				texti = texti + 26;
 			}
@@ -20,7 +20,7 @@ void encryptTrithemius(char* text, int c, int b, int a, int n) {
 			text[i] = texti;
 		}
 		else if ((text[i] >= 97) && (text[i] <= 122)) {
-			texti = int(text[i]) + a * (i + 1) * (i + 1) + b * (i + 1) + c;
+			texti = int(text[i]) + a * (i) * (i) + b * (i) + c;
 			while (texti > 122) {
 				texti = texti - 26;
 			}
