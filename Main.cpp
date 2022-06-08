@@ -1,30 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
-#include <string>
-#include <ios>
-#include <bitset>
-#include <sstream>
-#include <iomanip>
-
-using namespace std;
-
-void print(char* text);
-string string_to_hex(std::string& in);
-void encryptCaesar(char* text, int offset, int n);
-void decryptCaesar(char text[], int n);
-int changeOffset();
-void encryptTrithemius(char* text, int a, int b, int c, int n);
-void decryptTrithemius(char text[], int n);
-int changeParameter(int param);
-void encryptVigenere(char* text, string Key, int n);
-void decryptVigenere(char text[], string Key, int n);
-string changeKey();
-string encryptXOR(string text, string key, int n);
-string encryptDES(string text, string key);
-string decryptDES(string text, string skey);
-string encryptRSA(string text);
-string hex_to_binary(string text);
-
+#include "Ciphers.h"
 
 int main() {
 	printf("Enter your text\n");
@@ -50,7 +25,7 @@ int main() {
 		}
 		if (choose == 49)
 		{
-			printf("Pick cipher\n1 - Caesar\n2 - Trithemius(quadratic)\n3 - Vigenere\n4 - XOR\n5 - DES\n");
+			printf("Pick cipher\n1 - Caesar\n2 - Trithemius(quadratic)\n3 - Vigenere\n4 - XOR\n5 - DES\n6 - RSA\n");
 			scanf("%c", &cipher);
 			if (cipher == 10) {
 				scanf("%c", &cipher);
@@ -89,10 +64,14 @@ int main() {
 				n = txt.length();
 				print(text);
 			}
+			if (cipher == 54) {
+				int* openKey = RSAKeyGen();
+				encryptRSA(txt, openKey);
+			}
 		}
 		if (choose == 50)
 		{
-			printf("Pick cipher\n1 - Caesar\n2 - Trithemius(quadratic)\n3 - Vigenere\n4 - XOR\n5 - DES\n");
+			printf("Pick cipher\n1 - Caesar\n2 - Trithemius(quadratic)\n3 - Vigenere\n4 - XOR\n5 - DES\n6 - RSA\n");
 			scanf("%c", &cipher);
 			if (cipher == 10) {
 				scanf("%c", &cipher);
@@ -159,4 +138,8 @@ string hex_to_binary(string text) {
 		textbin += symb.to_string();
 	}
 	return textbin;
+}
+
+int* RSAKeyGen() {
+	return 0;
 }

@@ -148,6 +148,9 @@
     <ClCompile Include="Vigenere cipher.cpp" />
     <ClCompile Include="XOR cipher.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Ciphers.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

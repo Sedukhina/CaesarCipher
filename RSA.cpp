@@ -5,6 +5,7 @@
 
 using namespace std;
 
-string encryptRSA(string text) {
+string encryptRSA(string text, int* openKey){
+
 	return text;
 }
