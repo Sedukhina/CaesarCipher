@@ -26,6 +26,7 @@ const int P[32] = { 16, 7, 20, 21, 29, 12, 28, 17, 1, 15, 23, 26, 5, 18, 31, 10,
 
 string encryptDES(string text, string skey) {
 	string result = "";
+	string start = "";
 	bitset<64> key64;
 	while (skey.size() < 16) {
 		skey += skey;
@@ -50,20 +51,25 @@ string encryptDES(string text, string skey) {
 		D[setkey] = key[setkey];
 	}
 	cout << "\nC0 " << C.to_string() << "\nD0 " << D.to_string() << "\n";
-	int roundText = text.length()%16;					//adding characters so text devided on blocks without remainder
-	for (int i = 0; i < (16 - roundText); ++i) {
-		text += "A";
-	}
-	int n = text.length() / 16;							//diving text on blocks
+	int n = text.length() / 64;							//diving text on blocks
 	for (int i = 0; i < n; ++i) {
-		string blockStr = text.substr(i*16, 16);
+		string blockStr = text.substr(i*64, 64);
 		bitset<64> block;
-		for (int setBitset = 0; setBitset < 64; setBitset += 4) {			//convering block to binary
+		/*for (int setBitset = 0; setBitset < 64; setBitset += 4) {			//convering block to binary
 			bitset<4> blocki = bitset<4>(blockStr.c_str()[setBitset/4]);
 			block[60-setBitset] = blocki[0];
 			block[61-setBitset] = blocki[1];
 			block[62-setBitset] = blocki[2];
 			block[63-setBitset] = blocki[3];
+		}*/
+		for (int i = 0; i < 64; i++) {
+			string m = blockStr.substr(i, 1);
+			if (m == "0") {
+				block[63 - i] = 0;
+			}
+			else if (m == "1") {
+				block[63 - i] = 1;
+			}
 		}
 		cout <<"\n" << i + 1 << " block " << block << "\n\n";
 		bitset<64> blockCopy = block;
@@ -230,6 +236,8 @@ string decryptDES(string text, string skey) {
 			blockCopy[63-p] = block[64 - IPmin1[p]];
 		}
 		result += blockCopy.to_string();
+		C = C >> 1;
+		D = D >> 1;
 	}
 	return result;
 }

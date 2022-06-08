@@ -23,6 +23,7 @@ string encryptXOR(string text, string key, int n);
 string encryptDES(string text, string key);
 string decryptDES(string text, string skey);
 string encryptRSA(string text);
+string hex_to_binary(string text);
 
 
 int main() {
@@ -75,8 +76,14 @@ int main() {
 				print(text);
 			}
 			if (cipher == 53) {
+				int roundText = txt.length() % 8;					//adding characters so text deviding on blocks without remainder
+				for (int i = 0; i < (8 - roundText); ++i) {
+					txt += "A";
+				}
 				txt = string_to_hex(txt);
 				cout << "\nYour text in hexademical " << txt <<"\n\n";
+				txt = hex_to_binary(txt);
+				cout << "\nYour text in binary " << txt << "\n\n";
 				txt = encryptDES(txt, changeKey());
 				text = &txt[0];
 				n = txt.length();
@@ -143,4 +150,13 @@ string string_to_hex(std::string& in) {
 		ss << std::setw(2) << static_cast<unsigned int>(static_cast<unsigned char>(in[i]));
 	}
 	return ss.str();
+}
+
+string hex_to_binary(string text) {
+	string textbin = "";
+	for (int i = 0; i < text.length(); i++) {
+		bitset<4> symb = text.c_str()[i];
+		textbin += symb.to_string();
+	}
+	return textbin;
 }
