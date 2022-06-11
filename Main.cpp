@@ -10,8 +10,7 @@ int main() {
 	int n = txt.length();
 	char choose;
 	char cipher;
-	/*bitset<4> binKeyi = bitset<4>('a');
-	cout << binKeyi.to_string();*/
+	vector<int> textt;
 	while (1)
 	{
 		printf("Press 0 to see your text\nPress 1 to encrypt your text\nPress 2 to decrypt your text\nPress 3 to change your text\nPress 4 to exit\n");
@@ -65,8 +64,25 @@ int main() {
 				print(text);
 			}
 			if (cipher == 54) {
-				int* openKey = RSAKeyGen();
-				encryptRSA(txt, openKey);
+				int gen;
+				cout << "Generate(0) or enter(1) open key? ";				
+				cin >> gen;
+				array<long long int, 2> publicKey;
+				if (gen == 1) {
+					cout << "Enter n ";
+					cin >> publicKey[0];
+					cout << "Enter encryption exponent ";
+					cin >> publicKey[1];
+				}
+				else {
+					publicKey = RSAKeyGen(1);
+				}
+				textt = encryptRSA(txt, publicKey);
+				txt = "";
+				for (auto i : textt)
+					 txt += (char)(i);
+				text = &txt[0];
+				n = txt.length();
 			}
 		}
 		if (choose == 50)
@@ -100,6 +116,30 @@ int main() {
 				text = &txt[0];
 				n = txt.length();
 				print(text);
+			}
+			if (cipher == 54) {
+				int gen;
+				cout << "Generate keys(0) or decrypt text(1) ";
+				cin >> gen;
+				if (gen == 1) {
+					array<long long int, 2> privateKey;
+					cout << "Enter your private key \nEnter n ";
+					cin >> privateKey[0];
+					cout << "Enter decryption exponent ";
+					cin >> privateKey[1];
+					if (textt.size() == 0) {
+						txt = decryptRSA(text, privateKey);
+					}
+					else {
+						txt = decryptRSA(textt, privateKey);
+					}
+					text = &txt[0];
+					n = txt.length();
+					print(text);
+				}
+				else {
+					RSAKeyGen(0);
+				}
 			}
 		}
 		if (choose == 51)
@@ -140,6 +180,4 @@ string hex_to_binary(string text) {
 	return textbin;
 }
 
-int* RSAKeyGen() {
-	return 0;
-}
+

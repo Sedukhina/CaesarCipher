@@ -1,11 +1,13 @@
 #pragma once
 
 #include <iostream>
-#include <string>
 #include <ios>
+#include <string>
 #include <bitset>
 #include <sstream>
 #include <iomanip>
+#include <array>
+#include <vector>
 
 using namespace std;
 
@@ -23,6 +25,8 @@ string changeKey();
 string encryptXOR(string text, string key, int n);
 string encryptDES(string text, string key);
 string decryptDES(string text, string skey);
-string encryptRSA(string text, int* openKey);
+vector<int> encryptRSA(string text, array<long long int, 2> publicKey);
+string decryptRSA(vector<int> text, array<long long int, 2> privateKey);
+string decryptRSA(string text, array<long long int, 2> privateKey);
 string hex_to_binary(string text);
-int* RSAKeyGen();
+array<long long int, 2> RSAKeyGen(bool isPublic);
