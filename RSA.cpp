@@ -12,26 +12,25 @@ using namespace std;
 long long int generateOpenExponent(long long int fpq);
 long long int powerStrings(string sa, string sb, long long int MOD);
 
-vector<int> encryptRSA(string text, array<long long int, 2> publicKey){
-	vector<int> cryptoText;
-	for (int i = 0; i < text.size(); i++) {
-		cryptoText.push_back((int)(text[i]));
+string encryptRSA(string text, array<long long int, 2> publicKey){
+	string cryptoText = "";
+	int which;
+	cout << "1 - text is already int\n2 - text is string\n";
+	cin >> which;
+	if (which == 1) {
+		cryptoText += text;
 	}
-	cout << "Text as ints ";
-	for (auto i : cryptoText)
-		cout << i << ' ';
-	cout << "\n";
-	for (int i = 0; i < cryptoText.size(); i++) {
-		cryptoText[i] = powerStrings(to_string(cryptoText[i]), to_string(publicKey[1]), publicKey[0]);
+	else {
+		for (int i = 0; i < text.length(); i++) {
+			cryptoText += to_string(((int)text[i]));
+		}
 	}
-	cout << "Encrypted text ";
-	for (auto i : cryptoText)
-		cout << i << ' ';
-	cout << "\n";
+	long long int crypto = powerStrings(cryptoText, to_string(publicKey[1]), publicKey[0]);
+	cryptoText = to_string(crypto);
 	return cryptoText;
 }
 
-string decryptRSA(vector<int> text, array<long long int, 2> privateKey) {
+/*string decryptRSA(vector<int> text, array<long long int, 2> privateKey) {
 	/*string messsage = " ";
 	unsigned long long cryptoMessage = stoll(text);
 	unsigned long long messageInt = (cryptoMessage ^ privateKey[1]) % privateKey[0];
@@ -47,8 +46,8 @@ string decryptRSA(vector<int> text, array<long long int, 2> privateKey) {
 			messageSize = messageSize - 2;
 		}
 	}
-	return messsage;*/
-	string decryptedText = "";
+	return messsage;
+	/*string decryptedText = "";
 	cout << "\n";
 	for (int i = 0; i < text.size(); i++) {
 		text[i] = powerStrings(to_string(text[i]), to_string(privateKey[1]), privateKey[0]);
@@ -59,15 +58,28 @@ string decryptRSA(vector<int> text, array<long long int, 2> privateKey) {
 		decryptedText += ((char)i);
 	}
 	return decryptedText;
-}
+	string cryptoText;
+	for (int i = 0; i < text.size(); i++) {
+		cryptoText.push_back((int)(text[i]));
+	}
+	cout << "Text as ints ";
+	for (auto i : cryptoText)
+		cout << i << ' ';
+	cout << "\n";
+	for (int i = 0; i < cryptoText.size(); i++) {
+		cryptoText[i] = powerStrings(to_string(cryptoText[i]), to_string(publicKey[1]), publicKey[0]);
+	}
+	cout << "Encrypted text ";
+	for (auto i : cryptoText)
+		cout << i << ' ';
+	cout << "\n";
+}*/
 
 string decryptRSA(string text, array<long long int, 2> privateKey) {
-	vector<int> encryptedText;
-	for (int i = 0; i < text.size(); i++) {
-		encryptedText.push_back((int)(text[i]));
-	}
-	text = decryptRSA(encryptedText, privateKey);
-	return text;
+	string decryptedText = "";
+	long long int crypto = powerStrings(text, to_string(privateKey[1]), privateKey[0]);
+	decryptedText = to_string(crypto);
+	return decryptedText;
 }
 
 array<long long int, 2> RSAKeyGen(bool isPublic) {

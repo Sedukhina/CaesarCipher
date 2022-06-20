@@ -28,16 +28,25 @@ string encryptDES(string text, string skey) {
 	string result = "";
 	string start = "";
 	bitset<64> key64;
-	while (skey.size() < 16) {
+	while (skey.size() < 64) {
 		skey += skey;
 	}
-	for (int i = 0; i < 61; i += 4) {					//converting key to binary
+	for (int i = 0; i < 64; i++) {
+		string m = skey.substr(i, 1);
+		if (m == "0") {
+			key64[63 - i] = 0;
+		}
+		else if (m == "1") {
+			key64[63 - i] = 1;
+		}
+	}
+	/*for (int i = 0; i < 61; i += 4) {					//converting key to binary
 		bitset<4> keyi = bitset<4>(skey.c_str()[i/4]);
 		key64[63 - i] = keyi[3];
 		key64[62 - i] = keyi[2];
 		key64[61 - i] = keyi[1];
 		key64[60 - i] = keyi[0];
-	}
+	}*/
 	bitset<56> key;
 	for (int setkey = 0; setkey < 56; setkey++) {		//permuting 56-bit key
 		key[55 - setkey] = key64[64 - permutingKey[setkey]];
@@ -119,7 +128,7 @@ string encryptDES(string text, string skey) {
 			for (int a = 0; a < 32; ++a) {									//extracting right half 				
 				RHalf[a] = block[a];
 			}
-			cout << "rhalf" << round + 1 << " " << RHalf << "\n\n";
+			cout << "Right half " << round + 1 << " " << RHalf << "\n\n";
 			bitset<32> RHalfPermuted = f(RHalf, keyn);						//feistel function 
 			for (int a = 0; a < 32; ++a) {									//XORing new right half with old left half to get new right half
 				block[a] = block[a+32]^RHalfPermuted[a];
@@ -129,11 +138,15 @@ string encryptDES(string text, string skey) {
 			}
 			cout << i + 1 << " block after " << round + 1 << " round " << block.to_string() << "\n\n";
 		}																	//ending of 16 rounds
+		for (int a = 0; a < 32; ++a) {									//XORing new right half with old left half to get new right half
+			blockCopy[a] = block[a + 32];
+			blockCopy[a+32] = block[a];
+		}
 		for (int setBitset = 0; setBitset < 64; setBitset++) {
-			blockCopy[63- setBitset] = block[64-IPmin1[setBitset]];
+			block[63- setBitset] = blockCopy[64-IPmin1[setBitset]];
 		};
-		result += blockCopy.to_string();
-		cout << i+1 << " block final " << blockCopy.to_string() << "\n\n";
+		result += block.to_string();
+		cout << i+1 << " block final " << block.to_string() << "\n\n";
 	}
 	return result;
 }
@@ -141,16 +154,25 @@ string encryptDES(string text, string skey) {
 string decryptDES(string text, string skey) {
 	bitset<64> key64;
 	string result = "";
-	while (skey.size() < 16) {
+	while (skey.size() < 64) {
 		skey += skey;
 	}
-	for (int i = 0; i < 61; i += 4) {					//converting key to binary
+	for (int i = 0; i < 64; i++) {
+		string m = skey.substr(i, 1);
+		if (m == "0") {
+			key64[63 - i] = 0;
+		}
+		else if (m == "1") {
+			key64[63 - i] = 1;
+		}
+	}
+	/*for (int i = 0; i < 61; i += 4) {					//converting key to binary
 		bitset<4> keyi = bitset<4>(skey.c_str()[i/4]);
 		key64[63 - i] = keyi[3];
 		key64[62 - i] = keyi[2];
 		key64[61 - i] = keyi[1];
 		key64[60 - i] = keyi[0];
-	}
+	}*/
 	bitset<56> key;
 	for (int setkey = 0; setkey < 56; setkey++) {		//permuting 56-bit key
 		key[55 - setkey] = key64[64 - permutingKey[setkey]];
@@ -181,6 +203,13 @@ string decryptDES(string text, string skey) {
 			block[63 - p] = blockCopy[64 - IP[p]];
 		}
 		cout << "\n" << i + 1 << " block after permutation " << block.to_string() << "\n\n";
+		for (int a = 0; a < 32; ++a) {									//XORing new right half with old left half to get new right half
+			blockCopy[a] = block[a + 32];
+			blockCopy[a + 32] = block[a];
+		}
+		for (int a = 0; a < 64; ++a) {									//XORing new right half with old left half to get new right half
+			block[a] = blockCopy[a];
+		}
 		for (int round = 0; round < 16; round++) {
 			if (round == 1 || round == 8 || round == 15) {	//shifting keys
 				bitset<1> c;
@@ -222,7 +251,7 @@ string decryptDES(string text, string skey) {
 			for (int a = 0; a < 32; ++a) {									//extracting old right half 				
 				RHalf[a] = block[a+32];
 			}
-			cout << "rhalf" << round + 1 << " " << RHalf << "\n\n";
+			cout << "Right half " << round + 1 << " " << RHalf << "\n\n";
 			bitset<32> RHalfPermuted = f(RHalf, keyn);						//feistel function 
 			for (int a = 31; a > -1; --a) {									//XORing new right half with old right half to get old left half
 				block[a+32] = block[a] ^ RHalfPermuted[a];
@@ -247,16 +276,20 @@ bitset<32> f(bitset<32> RHalf, bitset<48> key) {
 	for (int i = 0; i < 48; ++i) {											//extending bitset
 		extendedR[47-i] = RHalf[32 - ETable[i]];
 	}
+	cout << "Extended right half " << extendedR.to_string() << "\n\n";
 	extendedR = extendedR ^ key;											//XORing extended bitset with key 
+	cout << "Extended right half after XORing " << extendedR.to_string() << "\n\n";
 	bitset<32> RHalfPermuted;
 	for (int i = 7; i > -1; --i) {											//converting 48 bits to 32 with sboxes
 		bitset<4> extract4;
 		bitset<2> extract2;
 		for (int a = 4; a > 0; --a) {
-			extract4[a-1] = extendedR[a + i * 6];
+			extract4[a-1] = extendedR[a + (i * 6)];
 		}
-		extract2[1] = extendedR[0 + i * 6];
-		extract2[0] = extendedR[5 + i * 6];
+		cout << "Column address " << 8-i << " " << extract4.to_string() << "\n\n";
+		extract2[1] = extendedR[5 + (i * 6)];
+		extract2[0] = extendedR[0 + (i * 6)];
+		cout << "Row address " << 8 - i << " " << extract2.to_string() << "\n\n";
 		int n = 8 * (int)extract4[3] + 4 * (int)extract4[2] + 2 * (int)extract4[1] + (int)extract4[0];
 		int m = 2 * (int)extract2[1] + (int)extract2[0];
 		int nm = SBoxs[7-i][m * 16 + n];
@@ -266,9 +299,11 @@ bitset<32> f(bitset<32> RHalf, bitset<48> key) {
 			RHalf[i * 4 + a] = resBitset[a];
 		}
 	}
+	cout << "RHalf before permutation " << RHalf.to_string() << "\n\n";
 	for (int a = 31; a > -1; --a) {											//permuting bits
 		RHalfPermuted[a] = RHalf[32 - P[31-a]];
 	}
+	cout << "RHalf after permutation " << RHalfPermuted.to_string() << "\n\n";
 	return RHalfPermuted;
 }
 
