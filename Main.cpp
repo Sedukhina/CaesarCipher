@@ -82,9 +82,16 @@ int main() {
 				else {
 					publicKey = RSAKeyGen(1);
 				}
-				txt = encryptRSA(txt, publicKey);
-				text = &txt[0];
-				n = txt.length();
+				cout << "1 - Piece by piece\n2 - Whole text\n\n";
+				cin >> gen;
+				if (gen == 1) {
+					RSAbyPieces(text, publicKey);
+				}
+				else {
+					txt = encryptRSA(txt, publicKey);
+					text = &txt[0];
+					n = txt.length();
+				}
 			}
 		}
 		if (choose == 50)
@@ -139,10 +146,17 @@ int main() {
 					cin >> privateKey[0];
 					cout << "Enter decryption exponent ";
 					cin >> privateKey[1];
-					txt = decryptRSA(text, privateKey);
-					text = &txt[0];
-					n = txt.length();
-					print(text);
+					cout << "1 - Piece by piece\n2 - Whole text\n\n";
+					cin >> gen;
+					if (gen == 1) {
+						void decryptRSAbyPieces(string text, array<long long int, 2> privateKey);
+					}
+					else {
+						txt = decryptRSA(text, privateKey);
+						text = &txt[0];
+						n = txt.length();
+						print(text);
+					}
 				}
 				else {
 					RSAKeyGen(0);

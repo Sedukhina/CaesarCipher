@@ -13,7 +13,7 @@ long long int generateOpenExponent(long long int fpq);
 long long int powerStrings(string sa, string sb, long long int MOD);
 
 string encryptRSA(string text, array<long long int, 2> publicKey){
-	string cryptoText = "";
+	string cryptoText = "";												//important that m < nm < n
 	int which;
 	cout << "1 - text is already int\n2 - text is string\n";
 	cin >> which;
@@ -28,6 +28,48 @@ string encryptRSA(string text, array<long long int, 2> publicKey){
 	long long int crypto = powerStrings(cryptoText, to_string(publicKey[1]), publicKey[0]);
 	cryptoText = to_string(crypto);
 	return cryptoText;
+}
+
+void RSAbyPieces(string text, array<long long int, 2> publicKey) {
+	string cryptoText = "";												//important that m < nm < n
+	int which;
+	cout << "1 - Letter by letter\n2 - Reenter\n";
+	cin >> which;
+	if (which == 1) {
+		for (int i = 0; i < text.length(); i++) {
+			cryptoText += powerStrings(to_string(((int)text[i])), to_string(publicKey[1]), publicKey[0]);
+		}
+		cout << cryptoText <<"\n";
+	}
+	else {
+		vector<int> txt;
+		cout << "Enter int by int and enter negative number when you finish\n";
+		int i = 0;
+		cin >> i;
+		while (i >= 0) {
+			txt.push_back(i);
+			cin >> i;
+		}
+		for (auto i : txt) {
+			i = powerStrings(to_string(i), to_string(publicKey[1]), publicKey[0]);
+			cout << i << "\n";
+		}
+	}
+}
+
+void decryptRSAbyPieces(string text, array<long long int, 2> privateKey) {
+	vector<int> txt;
+	cout << "Enter int by int and enter negative number when you finish\n";
+	int i = 0;
+	cin >> i;
+	while (i >= 0) {
+		txt.push_back(i);
+		cin >> i;
+	}
+	for (auto i : txt) {
+		i = powerStrings(to_string(i), to_string(privateKey[1]), privateKey[0]);
+		cout << i << "\n";
+	}
 }
 
 /*string decryptRSA(vector<int> text, array<long long int, 2> privateKey) {

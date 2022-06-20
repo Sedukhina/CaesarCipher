@@ -32,3 +32,5 @@ string binary_to_hex(string text);
 string hex_to_binary(string text);
 string binary_to_string(string text);
 string string_to_binary(string text);
+void RSAbyPieces(string text, array<long long int, 2> publicKey);
+void decryptRSAbyPieces(string text, array<long long int, 2> privateKey);
