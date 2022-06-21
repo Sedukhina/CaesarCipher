@@ -37,7 +37,10 @@ void RSAbyPieces(string text, array<long long int, 2> publicKey) {
 	cin >> which;
 	if (which == 1) {
 		for (int i = 0; i < text.length(); i++) {
-			cryptoText += powerStrings(to_string(((int)text[i])), to_string(publicKey[1]), publicKey[0]);
+			string smth = to_string(((int)text[i]));
+			cout << smth << "\n";
+			cryptoText += to_string(powerStrings(smth, to_string(publicKey[1]), publicKey[0]));
+			cryptoText += " ";
 		}
 		cout << cryptoText <<"\n";
 	}
@@ -71,51 +74,6 @@ void decryptRSAbyPieces(string text, array<long long int, 2> privateKey) {
 		cout << i << "\n";
 	}
 }
-
-/*string decryptRSA(vector<int> text, array<long long int, 2> privateKey) {
-	/*string messsage = " ";
-	unsigned long long cryptoMessage = stoll(text);
-	unsigned long long messageInt = (cryptoMessage ^ privateKey[1]) % privateKey[0];
-	text = to_string(messageInt);
-	int messageSize = text.length();
-	while (messageSize != 0) {
-		if (text[text.length() - messageSize] == 1) {
-			messsage += to_string(stoi(text.substr(text.length() - messageSize, 3)));
-			messageSize = messageSize - 3;
-		}
-		else {
-			messsage += to_string(stoi(text.substr(text.length() - messageSize, 2)));
-			messageSize = messageSize - 2;
-		}
-	}
-	return messsage;
-	/*string decryptedText = "";
-	cout << "\n";
-	for (int i = 0; i < text.size(); i++) {
-		text[i] = powerStrings(to_string(text[i]), to_string(privateKey[1]), privateKey[0]);
-	}
-	cout << "Text as ints ";
-	for (auto i : text) {
-		cout << i << ' ';
-		decryptedText += ((char)i);
-	}
-	return decryptedText;
-	string cryptoText;
-	for (int i = 0; i < text.size(); i++) {
-		cryptoText.push_back((int)(text[i]));
-	}
-	cout << "Text as ints ";
-	for (auto i : cryptoText)
-		cout << i << ' ';
-	cout << "\n";
-	for (int i = 0; i < cryptoText.size(); i++) {
-		cryptoText[i] = powerStrings(to_string(cryptoText[i]), to_string(publicKey[1]), publicKey[0]);
-	}
-	cout << "Encrypted text ";
-	for (auto i : cryptoText)
-		cout << i << ' ';
-	cout << "\n";
-}*/
 
 string decryptRSA(string text, array<long long int, 2> privateKey) {
 	string decryptedText = "";

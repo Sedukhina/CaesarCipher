@@ -82,7 +82,7 @@ int main() {
 				else {
 					publicKey = RSAKeyGen(1);
 				}
-				cout << "1 - Piece by piece\n2 - Whole text\n\n";
+				cout << "1 - Piece by piece\n2 - Whole text\n";
 				cin >> gen;
 				if (gen == 1) {
 					RSAbyPieces(text, publicKey);
@@ -123,7 +123,7 @@ int main() {
 			if (cipher == 53) {
 				string key = changeKey();
 				int which;
-				cout << "Key\n1 - is binary\n2 - is hex\n3 - is decimal\n\n";
+				cout << "Key\n1 - is binary\n2 - is hex\n3 - is decimal\n";
 				cin >> which;
 				if (which == 2) {
 					key = hex_to_binary(key);
@@ -146,10 +146,10 @@ int main() {
 					cin >> privateKey[0];
 					cout << "Enter decryption exponent ";
 					cin >> privateKey[1];
-					cout << "1 - Piece by piece\n2 - Whole text\n\n";
+					cout << "1 - Piece by piece\n2 - Whole text\n";
 					cin >> gen;
 					if (gen == 1) {
-						void decryptRSAbyPieces(string text, array<long long int, 2> privateKey);
+						decryptRSAbyPieces(text, privateKey);
 					}
 					else {
 						txt = decryptRSA(text, privateKey);
@@ -174,7 +174,7 @@ int main() {
 		if (choose == 52)
 		{
 			int which;
-			cout << "1 - binary to hex\n2 - hex to binary\n3 - binary to string\n4 - string to binary\n\n";
+			cout << "1 - binary to hex\n2 - hex to binary\n3 - binary to string\n4 - string to binary\n";
 			cin >> which;
 			if (which == 1) {
 				txt = binary_to_hex(txt);
