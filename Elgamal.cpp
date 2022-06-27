@@ -9,8 +9,8 @@ vector<long long> keygen(bool isPublic) {
 	int p;
 	cout << "Enter prime number p ";
 	cin >> p;
-	long long g = 0;
-	while (powerStrings(to_string(g), to_string(p-1), p) != 1) {
+	long long g = 1;
+	while (((g ^ (p - 1) - 1) / p) != ((int)(g ^ (p - 1) - 1) / p)) {
 		g++;
 	}
 	long long x;
@@ -43,6 +43,7 @@ array<long long, 2> encryptElgamal(vector<long long> key, string text) {
 
 string decryptElgamal(array<long long, 2> crypto, vector<long long> key) {
 	long long m = (crypto[1] * (crypto[0] ^ ((key[2]) - 1 - (key[3])))) % key[2];
+	return(to_string(m));
 }
 
 long long generatex(long long p) {
