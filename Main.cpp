@@ -12,7 +12,7 @@ int main() {
 	char cipher;
 	while (1)
 	{
-		printf("Press 0 to see your text\nPress 1 to encrypt your text\nPress 2 to decrypt your text\nPress 3 to change your text\nPress 4 to convert\nPress 5 to exit\n");
+		printf("Press 0 to see your text\nPress 1 to encrypt your text\nPress 2 to decrypt your text\nPress 3 to change your text\nPress 4 to convert\nPress 5 to exchange keys(Diffie-Hellman)\nPress 6 to exit\n");
 		scanf("%c", &choose);
 		if (choose == 10) {
 			scanf("%c", &choose);
@@ -191,6 +191,44 @@ int main() {
 			text = &txt[0];
 		}
 		if (choose == 53)
+		{
+			long long g;
+			long long p;
+			long long B;
+			long long a;
+			int gen;
+			cout << "1 - I have other user's public key\n2 - Generate other's public Key";
+			cin >> gen;
+			if (gen == 1) {
+				cout << "Enter g ";
+				cin >> g;
+				cout << "Enter p ";
+				cin >> p;
+				cout << "Enter B(other users public key) ";
+				cin >> B;
+				cout << "Enter a(your secret key) ";
+				cin >> a;
+				long long K = DiffieHellmanfinalKey(g, p, B, a);
+				cout << "Final key is " << K;
+			}
+			else {
+				cout << "Enter g ";
+				cin >> g;
+				cout << "Enter p ";
+				cin >> p;
+				long long b;
+				cout << "Enter b(your secret key 1) ";
+				cin >> b;
+				long long B = DiffieHellmanPublicKey(g, p, b);
+				cout << "Public key 1 is ";
+				long long a;
+				cout << "Enter a(your secret key 2) ";
+				cin >> a;
+				long long K = DiffieHellmanfinalKey(g, p, B, a);
+				cout << "Final key is " << K;
+			}
+		}
+		if (choose == 54)
 		{
 			return 0;
 		}

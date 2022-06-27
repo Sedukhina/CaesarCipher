@@ -34,3 +34,6 @@ string binary_to_string(string text);
 string string_to_binary(string text);
 void RSAbyPieces(string text, array<long long int, 2> publicKey);
 void decryptRSAbyPieces(string text, array<long long int, 2> privateKey);
+long long int powerStrings(string sa, string sb, long long int MOD);
+long long DiffieHellmanfinalKey(long long g, long long p, long long B, long long a);
+long long DiffieHellmanPublicKey(long long g, long long p, long long a);

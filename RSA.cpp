@@ -95,7 +95,7 @@ array<long long int, 2> RSAKeyGen(bool isPublic) {
 	if (encryptionExponent == 1) {
 		cout << "Enter open exponent (1 < e <" << fpq << ") and relatively prime to " << fpq << " ";
 		cin >> encryptionExponent;
-		if (1 > encryptionExponent || fpq < encryptionExponent || fpq%encryptionExponent == 0) {
+		if (1 > encryptionExponent || fpq < encryptionExponent || gcd(fpq, encryptionExponent) != 1) {
 			encryptionExponent = generateOpenExponent(fpq);
 		}
 	}
