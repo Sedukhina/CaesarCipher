@@ -23,7 +23,7 @@ int main() {
 		}
 		if (choose == 49)
 		{
-			printf("Pick cipher\n1 - Caesar\n2 - Trithemius(quadratic)\n3 - Vigenere\n4 - XOR\n5 - DES\n6 - RSA\n");
+			printf("Pick cipher\n1 - Caesar\n2 - Trithemius(quadratic)\n3 - Vigenere\n4 - XOR\n5 - DES\n6 - RSA\n7 - Elgamal\n");
 			scanf("%c", &cipher);
 			if (cipher == 10) {
 				scanf("%c", &cipher);
@@ -93,10 +93,32 @@ int main() {
 					n = txt.length();
 				}
 			}
+			if (cipher == 55) {
+				int gen;
+				cout << "Generate(0) or enter(1) open key? ";
+				cin >> gen;
+				vector<long long> publicKey;
+				if (gen == 1) {
+					long long p;
+					long long g;
+					long long y;
+					cout << "Enter public key\nEnter p ";
+					cin >> p;
+					cout << "Enter g ";
+					cin >> g;
+					cout << "Enter y ";
+					cin >> y;
+					publicKey = { y, g, p };
+				}
+				else {
+					publicKey = keygen(1);
+				}
+				encryptElgamal(publicKey, txt);
+			}
 		}
 		if (choose == 50)
 		{
-			printf("Pick cipher\n1 - Caesar\n2 - Trithemius(quadratic)\n3 - Vigenere\n4 - XOR\n5 - DES\n6 - RSA\n");
+			printf("Pick cipher\n1 - Caesar\n2 - Trithemius(quadratic)\n3 - Vigenere\n4 - XOR\n5 - DES\n6 - RSA\n7 - Elgamal\n");
 			scanf("%c", &cipher);
 			if (cipher == 10) {
 				scanf("%c", &cipher);
@@ -162,6 +184,8 @@ int main() {
 					RSAKeyGen(0);
 				}
 			}
+			if (cipher == 55) {
+			}
 		}
 		if (choose == 51)
 		{
@@ -197,16 +221,16 @@ int main() {
 			long long B;
 			long long a;
 			int gen;
-			cout << "1 - I have other user's public key\n2 - Generate other's public Key";
+			cout << "1 - I have public key\n2 - Generate Key\n";
 			cin >> gen;
 			if (gen == 1) {
 				cout << "Enter g ";
 				cin >> g;
 				cout << "Enter p ";
 				cin >> p;
-				cout << "Enter B(other users public key) ";
+				cout << "Enter other users public key ";
 				cin >> B;
-				cout << "Enter a(your secret key) ";
+				cout << "Enter a your secret key ";
 				cin >> a;
 				long long K = DiffieHellmanfinalKey(g, p, B, a);
 				cout << "Final key is " << K;
@@ -217,15 +241,15 @@ int main() {
 				cout << "Enter p ";
 				cin >> p;
 				long long b;
-				cout << "Enter b(your secret key 1) ";
+				cout << "Enter your secret key ";
 				cin >> b;
 				long long B = DiffieHellmanPublicKey(g, p, b);
-				cout << "Public key 1 is ";
+				cout << "Your public key is " << B << "\n";
 				long long a;
-				cout << "Enter a(your secret key 2) ";
+				cout << "Enter your second secret key ";
 				cin >> a;
 				long long K = DiffieHellmanfinalKey(g, p, B, a);
-				cout << "Final key is " << K;
+				cout << "Final key is " << K << "\n";
 			}
 		}
 		if (choose == 54)

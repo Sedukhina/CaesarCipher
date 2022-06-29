@@ -6,7 +6,7 @@ using namespace std;
 long long generatex(long long p);
 
 vector<long long> keygen(bool isPublic) {
-	int p;
+	long long p;
 	cout << "Enter prime number p ";
 	cin >> p;
 	long long g = 1;
@@ -38,6 +38,7 @@ array<long long, 2> encryptElgamal(vector<long long> key, string text) {
 	long long a = powerStrings(to_string(key[1]), to_string(k), key[2]);
 	long long b = powerStrings(to_string(key[0]), to_string(k), key[2]);
 	array<long long, 2> result = { a, b };
+	cout << "Cryptotext is: a = "<< a << "; b = " << b <<";\n";
 	return result;
 }
 

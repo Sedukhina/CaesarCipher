@@ -37,3 +37,6 @@ void decryptRSAbyPieces(string text, array<long long int, 2> privateKey);
 long long int powerStrings(string sa, string sb, long long int MOD);
 long long DiffieHellmanfinalKey(long long g, long long p, long long B, long long a);
 long long DiffieHellmanPublicKey(long long g, long long p, long long a);
+vector<long long> keygen(bool isPublic);
+array<long long, 2> encryptElgamal(vector<long long> key, string text);
+string decryptElgamal(array<long long, 2> crypto, vector<long long> key);
