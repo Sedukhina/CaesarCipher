@@ -23,7 +23,7 @@ int main() {
 		}
 		if (choose == 49)
 		{
-			printf("Pick cipher\n1 - Caesar\n2 - Trithemius(quadratic)\n3 - Vigenere\n4 - XOR\n5 - DES\n6 - RSA\n7 - Elgamal\n");
+			printf("Pick cipher\n1 - Caesar\n2 - Trithemius(quadratic)\n3 - Vigenere\n4 - XOR\n5 - DES\n6 - RSA\n");
 			scanf("%c", &cipher);
 			if (cipher == 10) {
 				scanf("%c", &cipher);
@@ -93,32 +93,10 @@ int main() {
 					n = txt.length();
 				}
 			}
-			if (cipher == 55) {
-				int gen;
-				cout << "Generate(0) or enter(1) open key? ";
-				cin >> gen;
-				vector<long long> publicKey;
-				if (gen == 1) {
-					long long p;
-					long long g;
-					long long y;
-					cout << "Enter public key\nEnter p ";
-					cin >> p;
-					cout << "Enter g ";
-					cin >> g;
-					cout << "Enter y ";
-					cin >> y;
-					publicKey = { y, g, p };
-				}
-				else {
-					publicKey = keygen(1);
-				}
-				encryptElgamal(publicKey, txt);
-			}
 		}
 		if (choose == 50)
 		{
-			printf("Pick cipher\n1 - Caesar\n2 - Trithemius(quadratic)\n3 - Vigenere\n4 - XOR\n5 - DES\n6 - RSA\n7 - Elgamal\n");
+			printf("Pick cipher\n1 - Caesar\n2 - Trithemius(quadratic)\n3 - Vigenere\n4 - XOR\n5 - DES\n6 - RSA\n");
 			scanf("%c", &cipher);
 			if (cipher == 10) {
 				scanf("%c", &cipher);
@@ -183,8 +161,6 @@ int main() {
 				else {
 					RSAKeyGen(0);
 				}
-			}
-			if (cipher == 55) {
 			}
 		}
 		if (choose == 51)

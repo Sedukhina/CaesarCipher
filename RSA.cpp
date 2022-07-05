@@ -1,7 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
-#include <ios>
 #include <array>
 #include <random>
 #include <numeric>
