@@ -10,19 +10,19 @@ void encryptCaesar(char* text, int offset, int n) {
 	for (int i = 0; i < n; ++i) {
 		if ((text[i] >= 65) && (text[i] <= 90)) {
 			text[i] = text[i] + offset;
-			if (text[i] < 65) {
+			if (text[i] < 65 && text[i] > 0) {
 				text[i] = text[i] + 26;
 			}
-			if (text[i] > 90) {
+			if (text[i] > 90  || text[i] < 0) {
 				text[i] = text[i] - 26;
 			}
 		}
 		else if ((text[i] >= 97) && (text[i] <= 122)) {
 			text[i] = text[i] + offset;
-			if (text[i] > 122) {
+			if (text[i] > 122 || text[i] < 0) {
 				text[i] = text[i] - 26;
 			}
-			if (text[i] < 97) {
+			if (text[i] < 97 && text[i] > 0) {
 				text[i] = text[i] + 26;
 			}
 		}
